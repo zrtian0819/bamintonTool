@@ -131,19 +131,7 @@
 			$(".goto").on("click", jumpToPage);
 
 			let linkNum = 1;
-			// $(".addNewLink").on("click", () => {
-			// 	let template = `<li>
-			// 						<input type="" class="gotoLink link${linkNum} form-control mt-3" />
-			// 					</li>`;
-			// 	$("ul").append(template);
-			// 	linkNum++;
-			// });
-
 			$(".addLink").on("click", () => {
-				let template = `<li>
-									<input type="" class="gotoLink link${linkNum} form-control mt-3" />
-								</li>`;
-
 				let date = $("#day").val();
 				let time = $("#hr").val();
 				let court = $("#court").val();
@@ -154,10 +142,14 @@
 					return;
 				}
 
+				let template = `<li>
+									<label class="mt-3 fw-bolder">${date} | ${time}時 | ${$("#court option:checked").text()}</label>
+									<input type="" class="gotoLink link${linkNum} form-control" />
+								</li>`;
+
 				$("ul").append(template);
 
 				let webUrl = `https://scr.cyc.org.tw/tp18.aspx?module=net_booking&files=booking_place&StepFlag=25&Qpid=${court}&QTime=${time}&PT=1&D=${date}`;
-
 				$(".link" + linkNum).val(webUrl);
 				linkNum++;
 			});
