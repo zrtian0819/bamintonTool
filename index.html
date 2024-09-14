@@ -117,6 +117,11 @@
 			function jumpToPage() {
 				// window.open("https://scr.cyc.org.tw/tp18.aspx?module=net_booking&files=booking_place&StepFlag=25&Qpid=27&QTime=14&PT=1&D=2024/09/22", "_blank");
 
+				if ($(".gotoLink").length === 0) {
+					alert("沒有新增可導頁的內容");
+					return;
+				}
+
 				$(".gotoLink").each(function (index, elm) {
 					let url = $(elm).val();
 					window.open(url, "_blank");
