@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>羽球場自動導頁程式</title>
+		<!-- Bootstrap CSS v5.2.1 -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+			crossorigin="anonymous"
+		/>
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+			integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+
+		<style>
+			.now {
+				background: #141414;
+				color: rgb(0, 255, 0);
+				/* height: 30px; */
+				font-size: 1.5rem;
+				border-radius: 10px;
+				padding: 5px;
+				display: grid;
+				place-items: center;
+			}
+
+			i {
+				font-size: 0.8rem;
+			}
+			.function {
+				padding: 10px;
+				border: 1px solid #ccc;
+				border-radius: 10px;
+				box-shadow: 0 3px 3px #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1 class="text-center mt-4 fw-bold">搶羽球場程式</h1>
+
+			<div class="now text-center">00:00:00</div>
+
+			<div class="function mt-3">
+				<a class="btn btn-primary" href="https://scr.cyc.org.tw/tp18.aspx?module=login_page&files=login&PT=1">八德國民運動中心</a>
+				<!-- <div class="addNewLink btn btn-success">
+					新增導頁連結
+					<i class="fa-solid fa-plus"></i>
+				</div> -->
+				<div class="goto btn btn-warning">立即導頁</div>
+			</div>
+
+			<p class="mt-2 text-secondary">說明:請先登入運動中心網站並保持登入狀態直到凌晨12時，此程式會在00:00:01自動導頁至下方準備好的連結，如果有失敗可以再按一次立即導頁</p>
+
+			<div class="condition row">
+				<input id="day" type="date" class="form-control col" required />
+				<select id="hr" id="" class="form-control col">
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+				</select>
+				<select id="court" id="" class="form-control col">
+					<option value="27">羽1</option>
+					<option value="28">羽2</option>
+					<option value="29">羽3</option>
+					<option value="30">羽4</option>
+					<option value="31">羽5</option>
+					<option value="32">羽6</option>
+				</select>
+
+				<button class="addLink btn btn-success">新增</button>
+			</div>
+
+			<ul class="links m-0 list-unstyled">
+				<!-- <li>
+					<input type="" class="gotoLink link1 form-control mt-3" />
+				</li> -->
+			</ul>
+		</div>
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+			integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		></script>
+		<script>
+			const targetTimes = ["00:00:01"]; // 多個目標時間，包含秒數
+			const checkTimeInterval = setInterval(function () {
+				const now = new Date();
+				const currentTime = now.getHours().toString().padStart(2, "0") + ":" + now.getMinutes().toString().padStart(2, "0") + ":" + now.getSeconds().toString().padStart(2, "0"); // 取得包含秒數的當前時間
+				$(".now").text(currentTime);
+
+				if (targetTimes.includes(currentTime)) {
+					jumpToPage();
+				}
+			}, 1000); // 每秒檢查一次
+
+			function jumpToPage() {
+				// window.open("https://scr.cyc.org.tw/tp18.aspx?module=net_booking&files=booking_place&StepFlag=25&Qpid=27&QTime=14&PT=1&D=2024/09/22", "_blank");
+
+				$(".gotoLink").each(function (index, elm) {
+					let url = $(elm).val();
+					window.open(url, "_blank");
+				});
+			}
+
+			$(".goto").on("click", jumpToPage);
+
+			let linkNum = 1;
+			// $(".addNewLink").on("click", () => {
+			// 	let template = `<li>
+			// 						<input type="" class="gotoLink link${linkNum} form-control mt-3" />
+			// 					</li>`;
+			// 	$("ul").append(template);
+			// 	linkNum++;
+			// });
+
+			$(".addLink").on("click", () => {
+				let template = `<li>
+									<input type="" class="gotoLink link${linkNum} form-control mt-3" />
+								</li>`;
+
+				let date = $("#day").val();
+				let time = $("#hr").val();
+				let court = $("#court").val();
+				date = date.replace(/-/g, "/");
+
+				if (date === "") {
+					alert("日期不得為空");
+					return;
+				}
+
+				$("ul").append(template);
+
+				let webUrl = `https://scr.cyc.org.tw/tp18.aspx?module=net_booking&files=booking_place&StepFlag=25&Qpid=${court}&QTime=${time}&PT=1&D=${date}`;
+
+				$(".link" + linkNum).val(webUrl);
+				linkNum++;
+			});
+		</script>
+	</body>
+</html>
