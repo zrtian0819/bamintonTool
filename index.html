@@ -44,7 +44,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<h1 class="text-center mt-4 fw-bold">羽球場預約程式</h1>
+			<h1 class="text-center mt-4 fw-bold">羽球場自動預約程式</h1>
 
 			<div class="now text-center">00:00:00</div>
 
@@ -57,25 +57,32 @@
 				<div class="goto btn btn-warning">立即預約</div>
 			</div>
 
-			<p class="mt-2 text-secondary">說明:請先登入運動中心網站並保持登入狀態直到凌晨12時，此程式會在00:00:01自動導頁至下方準備好的連結，如果出現網路繁忙可以再按一次立即預約</p>
+			<p class="mt-2 text-secondary">
+				說明:請先登入運動中心網站並保持登入狀態，請在此下方新增想預約的時段並停留在此畫面(重整頁面則可重新新增)，此程式會在00:00:01自動導頁至下方準備好的連結。如果出現網路繁忙可以再按一次立即預約。
+			</p>
 
 			<div class="condition row p-3">
 				<input id="day" type="date" class="form-control col" required />
 				<select id="hr" id="" class="form-control col">
-					<option value="08">08</option>
-					<option value="09">09</option>
-					<option value="10">10</option>
-					<option value="11">11</option>
-					<option value="12">12</option>
-					<option value="13">13</option>
-					<option value="14">14</option>
-					<option value="15">15</option>
-					<option value="16">16</option>
-					<option value="17">17</option>
-					<option value="18">18</option>
-					<option value="19">19</option>
-					<option value="20">20</option>
-					<option value="21">21</option>
+					<option disabled>--上午--</option>
+					<option value="06">06-07</option>
+					<option value="07">07-08</option>
+					<option value="08">08-09</option>
+					<option value="09">09-10</option>
+					<option value="10">10-11</option>
+					<option value="11">11-12</option>
+					<option disabled>--下午--</option>
+					<option value="12">12-13</option>
+					<option value="13">13-14</option>
+					<option value="14">14-15</option>
+					<option value="15">15-16</option>
+					<option value="16">16-17</option>
+					<option disabled>--晚上--</option>
+					<option value="17">17-18</option>
+					<option value="18">18-19</option>
+					<option value="19">19-20</option>
+					<option value="20">20-21</option>
+					<option value="21">21-22</option>
 				</select>
 				<select id="court" id="" class="form-control col">
 					<option value="27">羽1</option>
